@@ -1,15 +1,13 @@
-# nkpm
+# prosemirror-toc
 
-A React friendly version of ProseMirror used by Nested Knowledge.
+An implementation of a table of contents using prosemirror within React.
 
 A fork of [react-prosemirror](https://github.com/hubgit/react-prosemirror), with some consolidation & rearrangements 
 to expose different elements of the API.
 
-## About
-This project is a meaningless playground as is. 
-
 ## Run it
-`npm start`
+1. `npm install`
+2. `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
