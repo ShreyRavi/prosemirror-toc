@@ -30,6 +30,8 @@ import { Image } from 'grommet-icons/icons/Image';
 import { Undo } from 'grommet-icons/icons/Undo';
 import { Redo } from 'grommet-icons/icons/Redo';
 
+import { Catalog } from 'grommet-icons/icons/Catalog';
+
 import schema from './schema';
 
 const markActive = (state, type) => {
@@ -324,6 +326,21 @@ export default {
         onClick={() => redo(state, dispatch)}
         active={false}
         disabled={!redo(state)}
+      />
+    ),
+  ],
+  toc: [
+    (state, dispatch) => (
+      <BooleanMenuButton
+        key="Insert Table of Contents"
+        title="Insert Table of Contents"
+        icon={Catalog}
+        onClick={() => {
+          console.log("TOC Button clicked.");
+          return true;
+        }}
+        active={true}
+        disabled={false}
       />
     ),
   ],
