@@ -335,10 +335,7 @@ export default {
         key="Insert Table of Contents"
         title="Insert Table of Contents"
         icon={Catalog}
-        onClick={() => {
-          console.log("TOC Button clicked.");
-          return true;
-        }}
+        onClick={() => wrapInList(schema.nodes.toc)(state, dispatch)}
         active={true}
         disabled={false}
       />
