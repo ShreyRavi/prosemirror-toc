@@ -3,17 +3,21 @@ import MenuBar from './editor/MenuBar';
 import Editor from './editor/Editor';
 import { options, menu } from './config';
 
-class ImageView {
-  constructor(node) {
-    this.dom = document.createElement('table');
-    const row1 = document.createElement('tr');
-    const td1 = document.createElement('td');
-    const td2 = document.createElement('td');
-    td1.textContent = 'col1';
-    td2.textContent = 'col2';
-    row1.appendChild(td1);
-    row1.appendChild(td2);
-    this.dom.appendChild(row1);
+class TocView {
+  constructor(node, doc) {
+    const example = doc.content.content.filter((fragment) => fragment.type.name === "heading").map((fragment) => fragment.content.content[0].text);
+    this.dom = document.createElement('div');
+    const tocHeading = document.createElement('h3');
+    tocHeading.innerText = "Table of Contents";
+    this.dom.appendChild(tocHeading);
+    const ol = document.createElement('ol');
+    example.forEach((item) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="#${item}">${item}</a>`;
+      ol.appendChild(document.createElement('br'));
+      ol.appendChild(li);
+    });
+    this.dom.appendChild(ol);
   }
 
   stopEvent() { return true }
@@ -38,9 +42,13 @@ class HeadingView {
 class ProseEditor extends React.Component {
   state = {
     value: '',
+    headings: [],
   }
 
   render() {
+    const getNewTocView = (n) => {
+      return new TocView(n, this.state.value);
+    }
     return (
       <Editor
         options={options}
@@ -57,7 +65,7 @@ class ProseEditor extends React.Component {
         )}
         nodeViews={
           {
-            image(node) { return new ImageView(node) },
+            toc(node) { return getNewTocView(node) },
             heading(node) { return new HeadingView(node) }
           }
         }
