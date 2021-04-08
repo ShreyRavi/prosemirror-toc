@@ -18,6 +18,12 @@ const listNodes = {
     ...listItem,
     content: 'paragraph block*',
   },
+  toc: {
+    parseDOM: [{tag: "ul"}],
+    content: 'list_item+',
+    group: 'block',
+    toDOM() { return ["ul", 0] }
+  }
 };
 
 const nkTableNodes = {
@@ -29,10 +35,6 @@ const bibliography = {
 };
 
 const citation = {
-
-};
-
-const toc = {
 
 };
 
