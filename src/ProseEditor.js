@@ -19,6 +19,22 @@ class ImageView {
   stopEvent() { return true }
 }
 
+class HeadingView {
+  constructor(node) {
+    this.dom = this.contentDOM = document.createElement(`h${node.attrs.level}`);
+    if (node.content.size === 0) this.dom.classList.add("empty");
+    this.contentDOM.setAttribute('id', `${this.contentDOM.innerText}`);
+  }
+
+  update(node) {
+    if (node.type.name !== "heading") return false;
+    if (node.content.size > 0) this.dom.classList.remove("empty");
+    else this.dom.classList.add("empty");
+    this.contentDOM.setAttribute('id', `${this.contentDOM.innerText}`);
+    return true;
+  }
+}
+
 class ProseEditor extends React.Component {
   state = {
     value: '',
@@ -41,7 +57,8 @@ class ProseEditor extends React.Component {
         )}
         nodeViews={
           {
-            image(node) { return new ImageView(node) }
+            image(node) { return new ImageView(node) },
+            heading(node) { return new HeadingView(node) }
           }
         }
       />
