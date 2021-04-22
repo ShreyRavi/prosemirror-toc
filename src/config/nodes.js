@@ -28,7 +28,7 @@ const listNodes = {
 
 const headings = {
   heading1: {
-    attrs: {level: {default: 1}},
+    attrs: {level: {default: 1}, id: {default: 'heading1'},},
     content: "inline*",
     group: "block",
     defining: true,
