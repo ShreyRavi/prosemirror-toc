@@ -7,6 +7,8 @@ import {
 import { redo, undo } from 'prosemirror-history';
 import { wrapInList } from 'prosemirror-schema-list';
 
+import { Select } from 'grommet';
+
 import './menu.css';
 import { Subscript } from 'grommet-icons/icons/Subscript';
 import { Superscript } from 'grommet-icons/icons/Superscript';
@@ -207,14 +209,18 @@ export default {
         disabled={!setBlockType(schema.nodes.paragraph)(state)}
       />
     ),
-    (state, dispatch) => (
-      <BooleanMenuButton
-        key="Heading"
-        title="Heading"
-        icon={Table}
-        onClick={() => setBlockType(schema.nodes.heading, { level: 1 })(state, dispatch)}
-        active={blockActive(state, schema.nodes.heading, { level: 1 })}
-        disabled={!setBlockType(schema.nodes.heading, { level: 1 })(state)}
+    (state,dispatch) => (
+      <Select
+        style={{ width: "40px", margin: "0px" }}
+        options={[...Array(7).keys()].slice(1)}
+        disabledKey={(option) => !setBlockType(schema.nodes[`heading${option}`], { level: option })(state)}
+        defaultValue={1}
+        onChange={(value, option) => {
+          setBlockType(schema.nodes[`heading${value.option}`], { level: value.option })(state, dispatch);
+        }}
+        labelKey={(option) => `H${option}`}
+        margin="xxxsmall"
+        size="small"
       />
     ),
     (state, dispatch) => (
