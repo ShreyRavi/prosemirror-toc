@@ -213,10 +213,10 @@ export default {
       <Select
         style={{ width: "40px", margin: "0px" }}
         options={[...Array(7).keys()].slice(1)}
-        disabledKey={(option) => !setBlockType(schema.nodes[`heading${option}`], { level: option })(state)}
+        disabledKey={(option) => !setBlockType(schema.nodes.heading, { level: option })(state)}
         defaultValue={1}
-        onChange={(value, option) => {
-          setBlockType(schema.nodes[`heading${value.option}`], { level: value.option })(state, dispatch);
+        onChange={(value) => {
+          setBlockType(schema.nodes.heading, { level: value.option })(state, dispatch);
         }}
         labelKey={(option) => `H${option}`}
         margin="xxxsmall"
