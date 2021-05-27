@@ -7,7 +7,6 @@ import { options, menu } from './config';
 class TocView {
   constructor(node, editor) {
     const headingMatches = editor.state.doc.content.content.filter((fragment) => fragment.type.name.startsWith("heading")).map((fragment) => {
-      fragment.attrs.id = uuidv4();
       return {
         text: fragment.content.content[0].text, 
         id: fragment.attrs.id,
@@ -34,6 +33,7 @@ class HeadingView {
   constructor(node, editor) {
     this.dom = this.contentDOM = document.createElement(`h${node.attrs.level}`);
     if (node.content.size === 0) this.dom.classList.add("empty");
+    node.attrs.id = uuidv4();
     this.contentDOM.setAttribute('id', `${node.attrs.id}`);
   }
 
@@ -69,12 +69,7 @@ class ProseEditor extends React.Component {
         nodeViews={
           {
             toc(node, editor) { return new TocView(node, editor) },
-            heading1(node, editor) { return new HeadingView(node, editor) },
-            heading2(node, editor) { return new HeadingView(node, editor) },
-            heading3(node, editor) { return new HeadingView(node, editor) },
-            heading4(node, editor) { return new HeadingView(node, editor) },
-            heading5(node, editor) { return new HeadingView(node, editor) },
-            heading6(node, editor) { return new HeadingView(node, editor) },
+            heading(node, editor) { return new HeadingView(node, editor) },
           }
         }
       />
